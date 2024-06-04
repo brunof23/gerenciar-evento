@@ -29,35 +29,35 @@ public class EventoService {
 
     public EventoResponse saveEvento(EventoRequest eventoCreateDTO) {
         Evento evento = new Evento();
-        evento.setNome(eventoCreateDTO.getName());
-        evento.setDate(eventoCreateDTO.getDate());
-        evento.setLocation(eventoCreateDTO.getLocation());
-        evento.setMaxParticipants(eventoCreateDTO.getMaxParticipants());
+        evento.setNome(eventoCreateDTO.getNome());
+        evento.setData(eventoCreateDTO.getData());
+        evento.setLocalizacao(eventoCreateDTO.getLocalizacao());
+        evento.setMaxParticipantes(eventoCreateDTO.getMaxParticipantes());
         Evento eventoSalvo = eventoRepository.save(evento);
-        return convertToDTO(eventoSalvo);
+        return converterDTO(eventoSalvo);
     }
 
     public List<EventoResponse> findAll() {
         return eventoRepository.findAll().stream()
-                .map(this::convertToDTO)
+                .map(this::converterDTO)
                 .collect(Collectors.toList());
     }
 
     public Optional<EventoResponse> findById(String id) {
         return Optional.ofNullable(eventoRepository.findById(id)
-                .map(this::convertToDTO)
+                .map(this::converterDTO)
                 .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id)));
     }
 
     public Optional<EventoResponse> updateEvent(String id, EventoRequest eventUpdateDTO) {
         return Optional.ofNullable(eventoRepository.findById(id)
                 .map(existingEvent -> {
-                    existingEvent.setName(eventUpdateDTO.getName());
-                    existingEvent.setDate(eventUpdateDTO.getDate());
-                    existingEvent.setLocation(eventUpdateDTO.getLocation());
-                    existingEvent.setMaxParticipants(eventUpdateDTO.getMaxParticipants());
+                    existingEvent.setNome(eventUpdateDTO.getNome());
+                    existingEvent.setData(eventUpdateDTO.getData());
+                    existingEvent.setLocalizacao(eventUpdateDTO.getLocalizacao());
+                    existingEvent.setMaxParticipantes(eventUpdateDTO.getMaxParticipantes()es());
                     Evento updatedEvent = eventoRepository.save(existingEvent);
-                    return convertToDTO(updatedEvent);
+                    return converterDTO(updatedEvent);
                 }).orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id)));
     }
 
@@ -69,20 +69,20 @@ public class EventoService {
         }
     }
 
-    private EventoResponse converterDTO(Evento event) {
-        List<UsuarioDTO> participantes = Optional.ofNullable(event.getParticipants())
+    private EventoResponse converterDTO(Evento evento) {
+        List<UsuarioDTO> participantes = Optional.ofNullable(evento.getParticipantes())
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(this::convertToUserDTO)
                 .collect(Collectors.toList());
 
         return EventoResponse.builder()
-                .id(event.getId())
-                .name(event.getName())
-                .date(event.getDate())
-                .location(event.getLocation())
-                .participants(participantes)
-                .maxParticipants(event.getMaxParticipants())
+                .id(evento.getId())
+                .nome(evento.getNome())
+                .data(evento.getData())
+                .localizacao(evento.getLocalizacao())
+                .participantes(participantes)
+                .maxParticipantes(evento.getMaxParticipantes())
                 .build();
     }
 
@@ -96,7 +96,7 @@ public class EventoService {
         Usuario usuario = userRepository.findById(userId)
                 .orElseThrow(() -> new EventNotFoundException("User not found with id: " + userId));
 
-        evento.getParticipants().add(usuario);
+        evento.getParticipantes().add(usuario);
         eventoRepository.save(evento);
     }
 
@@ -107,28 +107,28 @@ public class EventoService {
         Usuario user = userRepository.findById(userId)
                 .orElseThrow(() -> new EventNotFoundException("User not found with id: " + userId));
 
-        if (!evento.getParticipants().contains(user)) {
+        if (!evento.getParticipantes().contains(user)) {
             throw new EventNotFoundException("User is not registered for the evento with id: " + eventId);
         }
 
-        evento.getParticipants().remove(user);
+        evento.getParticipantes().remove(user);
         eventoRepository.save(evento);
     }
 
-    private EventoResponse converterDTO(Evento event) {
-        List<UsuarioDTO> participantes = Optional.ofNullable(event.getParticipants())
+    private EventoResponse converterDTO(Evento evento) {
+        List<UsuarioDTO> participantes = Optional.ofNullable(evento())
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(this::convertToUserDTO)
                 .collect(Collectors.toList());
 
         return EventoResponse.builder()
-                .id(event.getId())
-                .name(event.getName())
-                .date(event.getDate())
-                .location(event.getLocation())
-                .participants(participantes)
-                .maxParticipants(event.getMaxParticipants())
+                .id(evento.getId())
+                .nome(evento.getNome())
+                .data(evento.getData())
+                .localizacao(evento.getLocalizacao())
+                .participantes(participantes)
+                .maxParticipantes(evento.getMaxParticipantes())
                 .build();
     }
 

@@ -44,6 +44,10 @@ public class SecurityConfig {
 
    private final JwtRequestFilter jwtRequestFilter;
 
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())

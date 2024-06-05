@@ -6,11 +6,11 @@ Compile e execute o projeto:
 
 ```sh mvn clean install mvn spring-boot:run ```
 
-A API estará disponível em `http://localhost:8080\`.
+A API estará disponível em http://localhost:8080\.
 
 
-Documentação: `http://localhost:8080/v3/api-docs\` <br>
-Swagger : `http://localhost:8080/swagger-ui/index.html\` <br>
+Documentação: http://localhost:8080/v3/api-docs\ <br>
+Swagger : http://localhost:8080/swagger-ui/index.html\ <br>
 
 Tecnologias:
 

@@ -9,20 +9,20 @@ Compile e execute o projeto:
 A API estará disponível em `http://localhost:8080\`.
 
 
-Documentação: `http://localhost:8080/v3/api-docs\`
-Swagger : `http://localhost:8080/swagger-ui/index.html\`
+Documentação: `http://localhost:8080/v3/api-docs\` <br>
+Swagger : `http://localhost:8080/swagger-ui/index.html\` <br>
 
 Tecnologias:
 
-Java 17
-Maven
-Springdoc OpenAPI 2.0.2 (Swagger UI)
-H2 Database
-Spring Boot 3.3.0
-Spring Web
-Spring Data JPA
-Spring Security
-JWT (JSON Web Token)
+Java 17 <br>
+Maven <br>
+Springdoc OpenAPI 2.0.2 (Swagger UI) <br>
+H2 Database <br>
+Spring Boot 3.3.0 <br>
+Spring Web <br>
+Spring Data JPA <br>
+Spring Security <br>
+JWT (JSON Web Token) <br>
 
 
 

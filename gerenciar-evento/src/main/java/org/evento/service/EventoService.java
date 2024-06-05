@@ -55,7 +55,7 @@ public class EventoService {
                     existingEvent.setNome(eventUpdateDTO.getNome());
                     existingEvent.setData(eventUpdateDTO.getData());
                     existingEvent.setLocalizacao(eventUpdateDTO.getLocalizacao());
-                    existingEvent.setMaxParticipantes(eventUpdateDTO.getMaxParticipantes()es());
+                    existingEvent.setMaxParticipantes(eventUpdateDTO.getMaxParticipantes());
                     Evento updatedEvent = eventoRepository.save(existingEvent);
                     return converterDTO(updatedEvent);
                 }).orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id)));
@@ -115,22 +115,7 @@ public class EventoService {
         eventoRepository.save(evento);
     }
 
-    private EventoResponse converterDTO(Evento evento) {
-        List<UsuarioDTO> participantes = Optional.ofNullable(evento())
-                .orElse(Collections.emptyList())
-                .stream()
-                .map(this::convertToUserDTO)
-                .collect(Collectors.toList());
 
-        return EventoResponse.builder()
-                .id(evento.getId())
-                .nome(evento.getNome())
-                .data(evento.getData())
-                .localizacao(evento.getLocalizacao())
-                .participantes(participantes)
-                .maxParticipantes(evento.getMaxParticipantes())
-                .build();
-    }
 
     private UsuarioDTO convertToUserDTO(Usuario usuario) {
         return new UsuarioDTO(usuario.getId(), usuario.getUsername());
